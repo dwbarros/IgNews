@@ -42,14 +42,20 @@
 
             &.active::after {
                 content: '';
+                
                 background-color: var(--yellow-500);
                 height: 3px;
                 border-radius: 3px 3px 0 0;
                 width: 100%;
-                position: absolute;
                 left: 0;
                 bottom: 1px;
+
+                position: absolute;
             }
         }
+    }
+
+    button {
+        margin-left: auto;
     }
 }
