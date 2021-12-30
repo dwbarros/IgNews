@@ -6,10 +6,6 @@ export default function Home() {
       <Head>
         <title>Ig News</title>
       </Head>
-
-      <h1>
-        IgNews
-      </h1>
     </>
   )
 }
