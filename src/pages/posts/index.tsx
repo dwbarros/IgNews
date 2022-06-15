@@ -47,6 +47,7 @@ export default function Posts({ posts }: PostsProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
     const prismic = getPrismicClient();
+    let posts = [];
 
     const response = await prismic.query<any>([
         Prismic.predicates.at('document.type', 'post')
@@ -55,18 +56,21 @@ export const getStaticProps: GetStaticProps = async () => {
         pageSize: 100,
     })
 
-    const posts = response.results.map(post => {
-        return {
-            slug: post.uid,
-            title: RichText.asText(post.data.title),
-            excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
-            updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric'
-            })
-        };
-    });
+    if(response) {
+        posts = response.results.map(post => {
+            return {
+                slug: post.uid,
+                title: RichText.asText(post.data.title),
+                excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
+                updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                })
+            };
+        });
+    }
+
 
     return {
         props: {
