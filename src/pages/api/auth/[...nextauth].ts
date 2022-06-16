@@ -6,6 +6,7 @@ import { query as q } from 'faunadb';
 
 
 export default NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
